@@ -12,12 +12,13 @@
  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
  <!-- Custom -->
  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-<!-- Lightbox -->
-<link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+ <!-- Lightbox -->
+ <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
 
-  <title>Red Brix</title>
-</head>
-<body>
+  <title>Red Brix {% block title %} {% endblock %} </title>
+  </head>
+
+  <body>
 
   <!-- Topbar-->
   {% include 'partials/_topbar.html' %}
@@ -32,9 +33,10 @@
 
  
 
-  <script src="{% static 'js/jquery-3.3.1.min.js' %} "></script>
-  <script src="{% static 'js/bootstrap.bundle.min.js' %} "></script>
-  <script src="{% static 'js/lightbox.min.js' %} "></script>
-  <script src="{% static 'js/main.js' %} "></script>
+  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/lightbox.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
+
