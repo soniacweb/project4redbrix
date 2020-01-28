@@ -2,32 +2,19 @@
 {% load humanize %}
 
 {% block title %} | Welcome {% endblock %}
+
 {% block content %}
 
+<img src="https://i.imgur.com/wgWkcxH.jpg" style= "background: no-repeat top center fixed/cover; position: relative" />
 
-<!DOCTYPE html> 
-<html lang="en"> 
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/css/all.css">
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="assets/css/bootstrap.css">
-  <!-- Custom -->
-  <link rel="stylesheet" href="assets/css/style.css">
-
-  <title>Redbrix</title>
-</head> 
-
-<section id="showcase">
+<section id="showcase" >
   <div class="container text-center">
+  
     <div class="home-search p-5">
       <div class="overlay p-5">
         <h1 class="display-4 mb-4">
           The Property Search Just Got Easy
+
         </h1>
         <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quas, asperiores eveniet vel nostrum magnam
           voluptatum tempore! Consectetur, id commodi!</p>
@@ -75,7 +62,7 @@
                 </select>
               </div>
             </div>
-            <button class="btn btn-dark btn-block mt-4" type="submit">Submit form</button>
+            <button class="btn btn-danger btn-block mt-4" type="submit">Submit form</button>
           </form>
         </div>
       </div>
@@ -124,16 +111,16 @@
                     <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }}</div>
                 </div>
                 <hr>
-                <div class="row py-2 text-dark">
+                <!-- <div class="row py-2 text-dark">
                   <div class="col-6">
                     <i class="fas fa-user"></i> {{ listing.consultant }}</div>
                 </div>
                 <div class="row text-dark pb-2">
                   <div class="col-6">
                     <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}</div>
-                </div>
-                <hr>
-                <a href="{% url 'listing' listing.id %}" class="btn btn-dark btn-block">More Info</a>
+                </div> -->
+                <!-- <hr> -->
+                <a href="{% url 'listing' listing.id %}" class="btn btn-danger btn-block">More Info</a>
               </div>
             </div>
           </div>
@@ -152,7 +139,11 @@
       </div>
 </section>
 
+<img src="https://i.imgur.com/q0icMQl.jpg" style= "background: no-repeat top center fixed/cover; position: relative" />
+
+
 <section id="services" class="py-5 bg-dark text-white">
+
   <div class="container">
     <div class="row text-center">
       <div class="col-md-4">
@@ -179,4 +170,6 @@
     </div>
   </div>
 </section>
+
+
 {% endblock %}

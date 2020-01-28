@@ -46,7 +46,7 @@
         <div class="row mb-5 thumbs">
           {% if listing.photo_1 %}
           <div class="col-md-2">
-            <a href=" " data-lightbox="home-images">
+            <a href="{{ listing.photo_1.url }}" data-lightbox="home-images">
               <img src="{{ listing.photo_1.url }}" alt="" class="img-fluid">
             </a>
           </div>
@@ -145,7 +145,7 @@
         <div class="card mb-3">
           <img class="card-img-top" src="{{ listing.consultant.photo.url }}" alt="">
           <div class="card-body">
-            <h5 class="card-title">Property Realtor</h5>
+            <h5 class="card-title">Property Consultant</h5>
             <h6 class="text-dark">{{ listing.consultant }}</h6>
           </div>
         </div>

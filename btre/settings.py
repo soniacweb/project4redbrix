@@ -128,18 +128,27 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS  = [
-  os.path.join(BASE_DIR, 'btre/static')
+    os.path.join(BASE_DIR, 'btre/static')
 ]
 
 #MEDIA FOLDER SETTINGS
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = ' /media/'
+MEDIA_URL = '/media/'
 
 #Messages
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
-    messages.ERROR: 'danger '
+    messages.ERROR: 'danger'
 }
+
+
+#EMAIL CONFIG
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER=''
+# EMAIL_HOST_PASSWORD=''
+# EMAIL_USE_TLS = True
