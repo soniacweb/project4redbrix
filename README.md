@@ -1,5 +1,12 @@
+
+![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
+
+<img src="https://i.imgur.com/v8wV4gK.png" style="display:block; margin: 0 auto;">
+
 # project4redbrix
-# Real Estate Project
+# Propert Search Project
+
+
 
 Redbrix is a dynamic property listings website built with Python and Django.
 
@@ -17,6 +24,12 @@ Redbrix is a dynamic property listings website built with Python and Django.
   - Below that the latest 3 listings in the postgres database are presented. 
 - At the end we have static markups with some services listed 
 
+<img src="https://i.imgur.com/mW1Gcme.png" style="width: 700px; display:block; margin: 0 auto;">
+
+### Search Functionality 
+
+<img src="https://i.imgur.com/WKZig24.png" style="width: 700px; display:block; margin: 0 auto;">
+
 ### About Page
 - some information about the company and property agents. playing around with query sets and how to filter my data when im fetching from the database. 
 - dynamic data included in the form of seller of the month
@@ -25,6 +38,14 @@ Redbrix is a dynamic property listings website built with Python and Django.
 - underneith the main image we have some information about the proprty, ie sq ft, room number, description etc 
 - there is a an enquiry button underneith the property agent's profile on this listins page. this opens up forn in a modal. its designed so if a user is already logged in, the email and name should pre-populate from the database.
 - once registered, message will pop using django message, and formatted in bootstrap. includes some javascript so that it can dissapear after 3 seconds. 
+
+<img src="https://i.imgur.com/B2zJ5pE.png" style="width: 700px; display:block; margin: 0 auto;">
+
+## Dyamic Listings Page
+
+<img src="https://i.imgur.com/SWdCvQP.png" style="width: 700px; display:block; margin: 0 auto;">
+
+<img src="https://i.imgur.com/d1xajyt.png" style="width: 700px; display:block; margin: 0 auto;">
 
 You can also:
   - Import and save files from GitHub, Dropbox, Google Drive and One Drive
