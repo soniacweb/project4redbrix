@@ -30,13 +30,13 @@ def contact(request):
     contact.save()
 
     #Send mail
-    send_email(
-      'Property Listing Inquiry'
-      'There has been an inquiry for ' + listing + '. sign into the admin panel for more info',
-      'sonia.choudhury@hotmail.co.uk',
-      [consultant_email, 'sonia.choudhury@hotmail.co.uk'],
-      fail_silently=False
-    )
+    # send_email(
+    #   'Property Listing Inquiry'
+    #   'There has been an inquiry for ' + listing + '. sign into the admin panel for more info',
+    #   'sonia.choudhury@hotmail.co.uk',
+    #   [consultant_email, 'sonia.choudhury@hotmail.co.uk'],
+    #   fail_silently=False
+    # )
   
 
     messages.success(request, 'Thanks, your request has been submitted and our team will get back to you soon!')

@@ -7,8 +7,12 @@
 # Propert Search Project
 
 
-
 Redbrix is a dynamic property listings website built with Python and Django.
+
+### To run
+
+python manage.py runserver 
+
 
 ### Technologies used:
 
