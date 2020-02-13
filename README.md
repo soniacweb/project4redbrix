@@ -21,7 +21,7 @@ Redbrix is a dynamic property listings website built with Python and Django.
 ### NB terminal command for returning to your virtual env if you get kicked out after installation on mac: 
 - source ./venv/bin/activate
 
-### NB terminal command for returning to your virtual env on windows: 
+### For returning to your virtual env on windows: 
 - ./venv/Scripts/activate.bat (possibly absolute path)
 
 ### Technologies used:
@@ -32,7 +32,7 @@ Redbrix is a dynamic property listings website built with Python and Django.
   - HTML
   - Lightbox 2
   - Jinga 
-  - Posgres
+  - Postgres
   - pgAdmin
 
 ### Homepage
@@ -62,7 +62,8 @@ Preview of the Lightbox feature
 
 !['Preview of the Lightbox feature'](https://media.giphy.com/media/J4zFtwoYVQ5O6uGDyx/giphy.gif)
 
-Enquiry on a listing, sucess message of enquiry, and dashboard summarising all enquiries once logged in:
+
+Enquiry on a listing, success message of enquiry, and dashboard summarising all enquiries once logged in:
 
 !['Preview of the Lightbox feature'](https://media.giphy.com/media/J4zBk2EH0LW3LALuOl/giphy.gif)
 
@@ -272,11 +273,221 @@ I used PostGresSQL to set up my database. It's a powerful relational database, a
 
 I also used pgAdmin- a management tool for PostgresSQL, which gave me a graphical interface to work with. 
 
-<img src="https://i.imgur.com/bcI0vkD.png" style="width: 600px; display:block; margin: 0 auto;">
+<img src="https://i.imgur.com/bcI0vkD.png" style="width: 500px; display:block; margin: 0 auto;">
 
 
-<img src="https://i.imgur.com/9nWha9G.png" style="width: 600px; display:block; margin: 0 auto;">
+<img src="https://i.imgur.com/9nWha9G.png" style="width: 500px; display:block; margin: 0 auto;">
 
+I had to inplement Postgres into my django app by defining the parameters in the settings file, but I also needed to install a couple of packages using pip in my venv.
+
+- pip install psyocopg2
+- pip install psyocopg2-binary
+
+And in my root btre, settings.py I set up the parameters and included the following: 
+
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'redbrixdb',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '6000'
+    }
+}
+```
+
+To get Postgres to interact with my django app, I migrated my apps using `python manage.py migrate`, where they were visible in pgAdmin (see above screenshot).
+
+My database is connected, and I could now think about my models, schemas, my own migrations to create tables and listings. 
+
+# Planning and mapping out my schemas
+
+Before creating my modals, I drafted out my schemas with what I would need for my site, and what the relationships would be.
+
+## Listings DB Table 
+
+| MODALS | DB FIELDS |
+| ------ | ------ |
+| id | INT |
+| Consultant | INT (it will be a foreign key field from the consultant's table (and all of the respective fields like their name, contact details, photo etc) and associate that to a listing. |
+| Title | Str- probably first line of street |
+| City | Str|
+| County| Str |
+| Description | Text (text field- as the description of properties will be longer) |
+| Price| Int |
+| Price| Int |
+| Bedrooms| Int |
+| Garage | Int |
+| Sqft | Int |
+| Lot_size | Float (decimal) |
+| List_date| Date |
+| Photo_main | Str |
+| Photo_1 | Str |
+| Photo_2 | Str |
+| Photo_3 | Str |
+| Photo_4 | Str |
+| Photo_5| Str |
+| Photo_6| Str |
+
+As an fyi, I didn't store images in the database, but stored the location of the images. That way I could fetch the location of the image and simply put that into an image source and render it on the page.  
+
+
+## Consultant Database
+
+| MODALS | DB FIELDS |
+| ------ | ------ |
+| id | INT |
+| Name | Str |
+| Photo | Str|
+| Description | Text|
+| Email| Str |
+| is_mvp | BOOL |
+
+
+## Contact (any enquiry that's made to the application on any of the listings should be saved in the database in a contact table)
+
+| MODALS | DB FIELDS |
+| ------ | ------ |
+| id | INT |
+| User_id| INT |
+| Name of the listing | INT |
+| Name  | Str |
+| Email |  Str |
+| Phone | Str |
+| Message | Text |
+| Contact Date | Date | 
+
+# Creating my Models
+
+After creating these, I ran a migration to create the tables in my database based on the models.  
+
+This is the model for my listings app. Found in *Listings > models.py* : 
+
+```
+class Listing(models.Model):
+  consultant = models.ForeignKey(Consultant, on_delete=models.DO_NOTHING)
+  title = models.CharField(max_length=200)
+  address = models.CharField(max_length=200)
+  city = models.CharField(max_length=100)
+  county = models.CharField(max_length=100)
+  postcode = models.CharField(max_length=10)
+  description = models.TextField(blank=True)
+  price = models.IntegerField()
+  bedrooms = models.IntegerField()
+  bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
+  garage = models.IntegerField(default=0)
+  sqft = models.IntegerField()
+  lot_size = models.DecimalField(max_digits=5, decimal_places=1)
+  photo_main = models.ImageField(upload_to='photos/%Y/%m/%d/')
+  photo_1 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+  photo_2 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+  photo_3 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+  photo_3 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+  photo_5 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+  photo_6 = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
+  is_published = models.BooleanField(default=True)
+  list_date = models.DateTimeField(default=datetime.now, blank=True)
+  def __str__(self):
+    return self.title
+  ```
+
+# Creating a Superuser And Registering Models with Admin
+
+`python manage.py createsuperuser` in my virtual environment through the integrated terminal allowed me to create a superuser. 
+
+<img src="https://i.imgur.com/uIbu5pf.png" style="width: 550px; display:block; margin: 0 auto;">
+
+# Fetching Data and displaying it on the Frontend
+
+I wanted to loop through my listings and output on the frontend. I  used a for loop using the jinja template syntax in my templates folder, inside listings.html:
+
+```
+
+<section id="listings" class="py-4">
+  <div class="container">
+    <div class="row">
+      {% if listings %}
+      {% for listing in listings %}
+
+ <!-- Listing 1 -->
+ <div class="col-md-6 col-lg-4 mb-4">
+  <div class="card listing-preview">
+    <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+    <div class="card-img-overlay">
+      <h2>
+        <span class="badge badge-danger text-white">£{{ listing.price | intcomma }}</span>
+      </h2>
+    </div>
+    <div class="card-body"> 
+      <div class="listing-heading text-center">
+        <h4 class="text-primary">{{ listing.title }}</h4>
+        <p>
+          <i class="fas fa-map-marker text-dark"></i> {{ listing.city }} {{ listing.county }} {{ listing.postcode }} </p>
+      </div>
+      <hr>
+      <div class="row py-2 text-dark">
+        <div class="col-6">
+          <i class="fas fa-th-large"></i> Square ft: {{ listing.sqft }} </div>
+        <div class="col-6">
+          <i class="fas fa-car"></i> {{ listing.garage}} </div>
+      </div>
+      <div class="row py-2 text-dark">
+        <div class="col-6">
+          <i class="fas fa-bed"></i> Bedrooms: {{ listing.bedrooms }} </div>
+        <div class="col-6">
+          <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }} </div>
+      </div>
+      <hr>
+      <div class="row py-2 text-dark">
+        <div class="col-12">
+          <i class="fas fa-user"></i> {{ listing.consultant }} </div>
+      </div>
+      <div class="row text-dark pb-2">
+        <div class="col-6">
+          <i class="fas fa-clock"></i> {{ listing.list_date | timesince }} </div>
+      </div>
+      <hr>
+      <a href="{% url 'listing' listing.id %}" class="btn btn-danger btn-block">More Info</a>
+    </div>
+  </div>
+</div>
+  {% endfor %}
+    {% else %}
+ <div class="col-md-12">
+  <p>No Listings Available</p>
+ </div>
+      {% endif %}  
+
+</div>
+    <div class="row">
+      <div class="col-md-12">
+        {% if listings.has_other_pages %}
+          <ul class="pagination">
+           {% if listings.has_previous %}
+              <li class="page-item">
+              <a href="?page={{listings.previous_page_number}}" class="page-link">&laquo;
+              </a>
+            </li>
+            {% else %}
+              <li class="page-item disabled">
+                <a class="page-link">&laquo;</a>
+              </li>
+          {% endif %}
+          {% for i in listings.paginator.page_range %}
+          {% if listings.number == i %}
+          <li class="page-item activate">
+            <a href="" class="page-link">{{i}}</a>
+          </li>
+          {% else %}
+          <li class="page-item">
+            <a href="?page={{i}}" class="page-link">{{i}}</a>
+          </li>
+            {% endif %}
+          {% endfor %}
+
+  ```
 
 
 # Wins
@@ -290,4 +501,5 @@ I find deploying Django apps in general quite tricky.
 
 # Future Features 
 
-Pinning properties feature included in the dashboard once logged in. 
+- Refactor frontend using React
+- I would like to incorporate a 'pinning' feature for users to pin properties of interest, and display them on the dashboard once logged in. 
