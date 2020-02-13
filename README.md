@@ -3,14 +3,17 @@
 
 <img src="https://i.imgur.com/v8wV4gK.png" style="width: 500px; display:block; margin: 0 auto;">
 
-# Project4redbrix- a Property Search Project
+# Project4redbrix- A Property Search Project
 
 Redbrix is a dynamic property listings website built with Python and Django.
 
 ### To run
 
-python manage.py runserver 
+- Create a virtual environment and within the env, intall Python 3, and Django.
+- python manage.py runserver 
 
+### NB terminal command for returning to your virtual env if you get kicked out: 
+- source ./venv/bin/activate
 
 ### Technologies used:
 
@@ -19,6 +22,7 @@ python manage.py runserver
   - CSS
   - HTML
   - Lightbox 2
+  - Jinga 
   - Posgres
   - pgAdmin
 
@@ -26,7 +30,7 @@ python manage.py runserver
 
   - Searchbox, with features enabled. 
   - Below that the latest 3 listings in the postgres database are presented. 
-- At the end we have static markups with some services listed 
+  - At the end we have static markups with some services listed 
 
 <img src="https://i.imgur.com/mW1Gcme.png" style="width: 700px; display:block; margin: 0 auto;">
 
@@ -35,13 +39,13 @@ python manage.py runserver
 <img src="https://i.imgur.com/WKZig24.png" style="width: 700px; display:block; margin: 0 auto;">
 
 ### About Page
-- some information about the company and property agents. playing around with query sets and how to filter my data when im fetching from the database. 
-- dynamic data included in the form of seller of the month
-- the listings page shows the property agent associated to that specific listing, this involves a property agent and property relationship 
-- main image, and smaller images undernieth in the form of a lightbox.
-- underneith the main image we have some information about the proprty, ie sq ft, room number, description etc 
-- there is a an enquiry button underneith the property agent's profile on this listins page. this opens up forn in a modal. its designed so if a user is already logged in, the email and name should pre-populate from the database.
-- once registered, message will pop using django message, and formatted in bootstrap. includes some javascript so that it can dissapear after 3 seconds. 
+- Some information about the company and property agents. Utilised with querysets and how to filter my data when I'm fetching from the database. 
+- Dynamic data included in the form of Seller of the Month, 'The Team' and the 3 most recent Properties Listings.
+- The listings page shows the property agent associated to that specific listing, this involves a property agent and property relationship. 
+- Main image, and smaller images underneath usting the Lightbox feature.
+- Underneith the main image we have some information about the proprty, ie sq ft, room number, description etc 
+- There is a an enquiry button underneith the property agent's profile on this listings page. This opens up form in a modal. Its designed so if a user is already logged in, the email and name should be pre-populate from the database.
+- Once registered, a message will pop using django message, and formatted in bootstrap. It also includes some javascript so that it can dissapear after 3 seconds. 
 
 <img src="https://i.imgur.com/B2zJ5pE.png" style="width: 700px; display:block; margin: 0 auto;">
 
@@ -113,9 +117,9 @@ urlpatterns = [
 ]
 ```
 
-# Pages > Views.py file for the Home and About Page: 
+## Pages > Views.py file for the Home and About Page: 
 
-In this file, I rendered templates here. The methods take in two things- the request itself, and the location of the template. 
+In this file, the methods rendered the templates. The methods take in two things- the request itself, and the location of the template. 
 
 ```
 def index(request):
@@ -153,10 +157,46 @@ Seller of the month has mvp check- this will allow the client to select who they
 
 ##### Templates > Pages 
 
-Two files under this folder, index.html and about.html. 
+Two files under this folder, index.html and about.html. For the design and layout of the pages, I didn't want to repeat the same code and instead, extended a base layout.
 
+***Base.html*** stored the basic design, which I could then extend to other templates. To do that, I used the Jinja syntax which is the template engine Django uses by default. 
 
+```
+</head>
 
+  <body>
+
+  <!-- Topbar-->
+  {% include 'partials/_topbar.html' %}
+  <!-- Navbar -->
+  {% include 'partials/_navbar.html' %}
+
+  <!-- Main content-->
+  {% block content %} {% endblock %}
+
+  <!-- Footer-->
+  {% include 'partials/_footer.html' %}
+
+```
+
+Anywhere template that I required the need to extend the base layouts from, I needed to include the following: 
+
+```
+{% extends 'base.html' %}
+```
+
+Then wrap the content in a block content like so: 
+
+```
+{% block content %}
+```
+
+Before right at the end, having to include:
+
+```
+{% endblock %}
+```
+ 
 # Challenges 
 
 
