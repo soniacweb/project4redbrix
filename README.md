@@ -3,9 +3,7 @@
 
 <img src="https://i.imgur.com/v8wV4gK.png" style="width: 500px; display:block; margin: 0 auto;">
 
-# project4redbrix
-# Propert Search Project
-
+# Project4redbrix- a Property Search Project
 
 Redbrix is a dynamic property listings website built with Python and Django.
 
@@ -21,6 +19,8 @@ python manage.py runserver
   - CSS
   - HTML
   - Lightbox 2
+  - Posgres
+  - pgAdmin
 
 ### Homepage
 
@@ -51,23 +51,98 @@ python manage.py runserver
 
 <img src="https://i.imgur.com/d1xajyt.png" style="width: 700px; display:block; margin: 0 auto;">
 
-You can also:
-  - Import and save files from GitHub, Dropbox, Google Drive and One Drive
-  - Drag and drop markdown and HTML files into Dillinger
-  - Export documents as Markdown, HTML and PDF
-  - 
+# Backend 
 
-Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
+## settings.py app configuration:
 
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
-> as possible. The idea is that a
-> Markdown-formatted document should be
-> publishable as-is, as plain text, without
-> looking like it's been marked up with tags
-> or formatting instructions.
+Configuring the apps in settings.py is important, because it lets django recognise the below are apps. 
 
-This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.
+``` INSTALLED_APPS = [
+    'pages.apps.PagesConfig',
+    'listings.apps.ListingsConfig',
+    'consultants.apps.ConsultantsConfig',
+    'contacts.apps.ContactsConfig',
+    'accounts.apps.AccountsConfig',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.humanize',
+]
+
+```
+
+# Paths: 
+
+Essentially linking the *urls.py* of the respective apps I've created, to the paths.
+
+```
+urlpatterns = [
+    path('', include('pages.urls')),
+    path('listings/', include('listings.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('contacts/', include('contacts.urls')),
+    path('admin/', admin.site.urls),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ ```
+  
+
+### Creating the Pages Apps:
+
+The pages app takes care of displaying the homepage, the about page, and any other static pages. I wanted to import modals from the 'listings' and 'consultants' app, into pages, so I can display the information from the database. This would allow for a dynamic house listings page, a 'consultant of the month' and the team- the information would be coming from the database.  
+
+## apps.py:
+```
+class PagesConfig(AppConfig):
+    name = 'pages'
+
+```
+
+## urls.py:
+
+The idea here is to atttach a url path to a method inside the *views.py* file. I wanted a url path for my homepage so I defined url patterns in list format here: 
+
+```
+from . import views
+
+urlpatterns = [
+  path('', views.index, name='index'),
+  path('about', views.about, name='about'),
+]
+```
+
+## views.py file: 
+
+```
+def index(request):
+   listings = Listing.objects.order_by('-list_date').filter(is_published=True)[:3]
+
+   context = {
+      'listings': listings,
+      'price_choices': price_choices,
+      'bedroom_choices': bedroom_choices,
+      'county_choices': county_choices
+   }
+
+   return render(request, 'pages/index.html', context)
+
+def about(request): 
+  #get all consultants
+  consultants = Consultant.objects.order_by('-hire_date')
+
+  #seller of the month has mvp check
+  mvp_consultants = Consultant.objects.all().filter(is_mvp=True)
+
+  context = {
+      'consultants': consultants,
+      'mvp_consultants': mvp_consultants
+   }
+  
+  ``` 
+
+
 
 ### Tech
 
