@@ -278,7 +278,7 @@ I also used pgAdmin- a management tool for PostgresSQL, which gave me a graphica
 
 <img src="https://i.imgur.com/9nWha9G.png" style="width: 500px; display:block; margin: 0 auto;">
 
-I had to inplement Postgres into my django app by defining the parameters in the settings file, but I also needed to install a couple of packages using pip in my venv.
+I had to implement Postgres into my Django app by defining the parameters in the settings file, but I also needed to install a couple of packages using pip in my venv.
 
 - pip install psyocopg2
 - pip install psyocopg2-binary
@@ -300,7 +300,7 @@ DATABASES = {
 
 To get Postgres to interact with my django app, I migrated my apps using `python manage.py migrate`, where they were visible in pgAdmin (see above screenshot).
 
-My database is connected, and I could now think about my models, schemas, my own migrations to create tables and listings. 
+This is how I connected to my database, and I could now think about my models, schemas, my own migrations to create tables and listings. 
 
 # Planning and mapping out my schemas
 
@@ -401,7 +401,9 @@ class Listing(models.Model):
 
 # Fetching Data and displaying it on the Frontend
 
-I wanted to loop through my listings and output on the frontend. I  used a for loop using the jinja template syntax in my templates folder, inside listings.html:
+I wanted to loop through my listings and output on the frontend. I  used a for loop using the jinja template syntax in my templates folder, inside listings.html. I wanted each one of my listings to have the same markup, but the information fetched from the database to be dynamic through the use of dynamic variables passing through every iteration of the loop. I accessed my properties in my database, through the use of dot notation in this syntax: `{{ listing.title }}` for example. 
+
+This rendered unique listed properties on the frontend for my listings page. 
 
 ```
 
@@ -489,10 +491,25 @@ I wanted to loop through my listings and output on the frontend. I  used a for l
 
   ```
 
+I used the same method to create dynamic information in the Home and Abouts page. 
+
+# Single Listings Page 
+
+Using virtually the same method as above, I needed to work with two documents here, the method I had already identified and the markup for the template.
+
+Listings > views.py
+Template > listing.html
+
+# Search Feature 
+
+# Register and Login
+
+# Contact Inquiries and Dashboard Feature 
+
 
 # Wins
 
-I haven't worked much with Django and Python, which is why I wanted to explore GA's last module further on my own by following a Udemy course to supplement my learning. Creating and seeding my database using Django, and feeding that through on the Boostrap frontend was a great feeling! It was an ambitious project to do on my own, but once I was slowly seeing the site come together, it was a hugely rewarding feeling. 
+I haven't worked much with Django and Python, which is why I wanted to explore GA's last module further on my own by following a Udemy course to supplement my learning. Creating and seeding my database using Django, and feeding that through on the Boostrap frontend was a great feeling! It was an ambitious project to do on my own, but the highlight for me, was strangely the Inquiries and Dashboard features. All in all, once I was slowly seeing the site come together, it was a hugely rewarding feeling. 
 
 # Challenges 
 
