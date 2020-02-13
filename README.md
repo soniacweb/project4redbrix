@@ -56,6 +56,17 @@ Redbrix is a dynamic property listings website built with Python and Django.
 - There is a an enquiry button underneith the property agent's profile on this listings page. This opens up form in a modal. Its designed so if a user is already logged in, the email and name should be pre-populate from the database.
 - Once registered, a message will pop using django message, and formatted in bootstrap. It also includes some javascript so that it can dissapear after 3 seconds. 
 
+# Demo
+
+Preview of the Lightbox feature
+
+!['Preview of the Lightbox feature'](https://media.giphy.com/media/J4zFtwoYVQ5O6uGDyx/giphy.gif)
+
+Enquiry on a listing, sucess message of enquiry, and dashboard summarising all enquiries once logged in:
+
+!['Preview of the Lightbox feature'](https://media.giphy.com/media/J4zBk2EH0LW3LALuOl/giphy.gif)
+
+
 <img src="https://i.imgur.com/B2zJ5pE.png" style="width: 700px; display:block; margin: 0 auto;">
 
 ## Dyamic Listings Page
@@ -221,7 +232,7 @@ STATICFILES_DIRS = [
 
 ```
 
-I wanted the topbar, navbar, and footer to be present on every single page. In my base.html file, I needed to load the static files like below, referencing the folder structure and include my Boostrap styling in: 
+I wanted the topbar, navbar, and footer to be present on every single page. In my base.html file, I needed to load the static files like below, referencing the folder structure and include my Bootstrap styling in: 
 
 
 ```
@@ -239,7 +250,42 @@ I wanted the topbar, navbar, and footer to be present on every single page. In m
 
  ```
 
+# Creating a Listings and Consultants App
+
+## urls.py: 
+
+For both these seperate apps, I essentially repeated the same process that I did for my pages app.
+
+I identified a path for Listings. For the single Listings page, I needed to identify a parameter:  *listings_id* is how I accessed that parameter, followed by the *views.listing* method, and the name listing.
+
+```
+urlpatterns = [
+  path('', views.index, name='listings'),
+  path('<int:listing_id>', views.listing, name='listing'),
+  path('search', views.search, name='search'),
+]
+```
+
+# PostgresSQL
+
+I used PostGresSQL to set up my database. It's a powerful relational database, and pairs well with django, using structured query language.
+
+I also used pgAdmin- a management tool for PostgresSQL, which gave me a graphical interface to work with. 
+
+<img src="https://i.imgur.com/bcI0vkD.png" style="width: 600px; display:block; margin: 0 auto;">
+
+
+<img src="https://i.imgur.com/9nWha9G.png" style="width: 600px; display:block; margin: 0 auto;">
+
+
+
+# Wins
+
+I haven't worked much with Django and Python, which is why I wanted to explore GA's last module further on my own by following a Udemy course to supplement my learning. Creating and seeding my database using Django, and feeding that through on the Boostrap frontend was a great feeling! It was an ambitious project to do on my own, but once I was slowly seeing the site come together, it was a hugely rewarding feeling. 
+
 # Challenges 
+
+I find deploying Django apps in general quite tricky. 
 
 
 # Future Features 
