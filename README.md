@@ -5,9 +5,7 @@
 <img src="https://i.imgur.com/v8wV4gK.png" style="width: 500px;">
 </p>
 
-< align="center">
 # SEI Project 4: Redbrix- A Property Search App
-</>
 
 Redbrix is a dynamic property listings website built with Python and Django.
 
