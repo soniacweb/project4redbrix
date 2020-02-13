@@ -9,13 +9,20 @@
 
 Redbrix is a dynamic property listings website built with Python and Django.
 
+# Timeframe
+
+1 week solo project
+
 ### To run
 
 - Create a virtual environment and within the env, intall Python 3, and Django.
-- python manage.py runserver 
+- python manage.py runserver inside env.
 
-### NB terminal command for returning to your virtual env if you get kicked out: 
+### NB terminal command for returning to your virtual env if you get kicked out after installation on mac: 
 - source ./venv/bin/activate
+
+### NB terminal command for returning to your virtual env on windows: 
+- ./venv/Scripts/activate.bat (possibly absolute path)
 
 ### Technologies used:
 
@@ -198,7 +205,22 @@ Before right at the end, having to include:
 ```
 {% endblock %}
 ```
- 
+## Bootstrap Layout Markup and Static Files 
+
+The entire CCS, img, webfonts, and JS folders were stored in an Asset folder.
+
+Referencing collect static 
+
+```
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'btre/static')
+]
+
+```
+
 # Challenges 
 
 
