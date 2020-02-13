@@ -209,7 +209,7 @@ Before right at the end, having to include:
 
 The entire CCS, img, webfonts, and JS folders were stored in an Asset folder.
 
-Referencing collect static 
+Referencing collect static, I needed to load static assets by linking the static files to my base.html file. 
 
 ```
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -220,6 +220,24 @@ STATICFILES_DIRS = [
 ]
 
 ```
+
+I wanted the topbar, navbar, and footer to be present on every single page. In my base.html file, I needed to load the static files like below, referencing the folder structure and include my Boostrap styling in: 
+
+
+```
+{% load static %}
+
+...
+
+ <link rel="stylesheet" href="{% static 'css/all.css' %}">
+ <!-- Bootstrap -->
+ <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+ <!-- Custom -->
+ <link rel="stylesheet" href="{% static 'css/style.css' %}">
+ <!-- Lightbox -->
+ <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+
+ ```
 
 # Challenges 
 
