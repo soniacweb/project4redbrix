@@ -151,13 +151,13 @@ Seller of the month has mvp check- this will allow the client to select who they
   
   ``` 
 
-# Frontend
+# Frontend and UI
 
 ### Page Templates  and Base Layout
 
 ##### Templates > Pages 
 
-Two files under this folder, index.html and about.html. For the design and layout of the pages, I didn't want to repeat the same code and instead, extended a base layout.
+Two files under this folder, index.html and about.html. For the design and layout of the pages, I wanted to keep the design and theme consistant through the navigation of the site and therefore chose to extend a base layout.
 
 ***Base.html*** stored the basic design, which I could then extend to other templates. To do that, I used the Jinja syntax which is the template engine Django uses by default. 
 
