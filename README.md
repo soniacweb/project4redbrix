@@ -1,7 +1,9 @@
 
 ![](https://ga-dash.s3.amazonaws.com/production/assets/logo-9f88ae6c9c3871690e33280fcf557f33.png)
 
-<img src="https://i.imgur.com/v8wV4gK.png" style="width: 500px;" align="center">
+<p align="center">
+<img src="https://i.imgur.com/v8wV4gK.png" style="width: 500px;">
+</p>
 
 # Project4redbrix- A Property Search Project
 
