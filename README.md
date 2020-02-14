@@ -502,6 +502,96 @@ Template > listing.html
 
 # Search Feature 
 
+<img src="https://i.imgur.com/WKZig24.png" style="width: 500px; display:block; margin: 0 auto;">
+
+All of the select list values were put nto a python dictionary before being imported and looped through, and the values outputted through the loop on the frontend. 
+
+Created a file in the listings app > *choices.py*
+
+Each choice has a key value pair. The key is going to be used for the value attribute
+
+Key value pair in *choices.py*:
+
+```
+county_choices = {
+'ABD': 'Aberdeenshire, Scotland',
+'AGY': 'Anglesey, Wales',
+'ANG': 'Angus, Scotland',
+'ANT': 'Co. Antrim, Northern Ireland',
+'ARL': 'Argyllshire, Scotland',
+'ARM': 'Co. Armagh, Northern Ireland',
+'AVN': 'Avon, England',
+'DC"': 'yrshire, Scotland',
+'BAN': 'Banffshire, Scotland',
+'BDF': 'Bedfordshire, England',
+'BEW': 'Berwickshire, Scotland',
+'BKM': 'Buckinghamshire, England',
+'BOR': 'Borders, Scotland',
+'BRE': 'Breconshire, Wales',
+'BRK': 'Berkshire, England',
+}
+```
+
+And the values are in the frontend templates > index.html file: 
+
+```
+ <div class="search">
+          <form action="{% url 'search' %}">
+            <!-- Form Row 1 -->
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">Keywords</label>
+                <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)">
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">City</label>
+                <input type="text" name="city" class="form-control" placeholder="City">
+              </div>
+
+              <div class="col-md-4 mb-3">
+                <label class="sr-only">County</label>
+                <select name="state" class="form-control">
+                  <option selected="true" disabled="disabled">County (All)</option>
+                 {% for key, value in county_choices.items %}
+                    <option value="{{ key }} "> {{ value }} </option>
+                 {% endfor %}
+                </select>
+              </div>
+            </div>
+            <!-- Form Row 2 -->
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label class="sr-only">Bedrooms</label>
+                <select name="bedrooms" class="form-control">
+                  <option selected="true" disabled="disabled">Bedrooms (All)</option>
+                  {% for key, value in bedroom_choices.items %}
+                  <option value="{{ key }} "> {{ value }} </option>
+               {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <select name="price" class="form-control" id="type">
+                  <option selected="true" disabled="disabled">Max Price (Any)</option>
+                  {% for key, value in price_choices.items %}
+                  <option value="{{ key }} "> {{ value }} </option>
+               {% endfor %}
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-danger btn-block mt-4" type="submit">Submit form</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<br>
+```
+
+
+
+
 # Register and Login
 
 # Contact Inquiries and Dashboard Feature 
